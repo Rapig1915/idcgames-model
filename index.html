@@ -900,7 +900,7 @@ function buildGameMini(game_info, recent=0){
     '                            <div class="card-body mt-4 mr-4">' +
     '                                <div class="d-flex"><a class="text-white" href="/'+game_info.seo+'/"><h3 class="card-title display-4 bordered-bottom border-expanded-left text-shadow pr-2">' + game_info.name + '</h3></a></div>' +
     '                                <a href="/free-to-play/" class="btn btn-secondary animated fadeInLeft fast corner price" data-play="'+game_info.id_idcgame+'"></a>' +
-    (game_info.has_offer ? '                                <a href="#" class="btn btn-sm btn-danger animated fadeInLeft fast" style="position: absolute;top: 0;right: 0;margin-right: 2rem!important;margin-top: 1rem!important;">-' : ":") + game_info.offer_discount + '%</a>' +
+    (game_info.has_offer ? ('                                <a href="#" class="btn btn-sm btn-danger animated fadeInLeft fast" style="position: absolute;top: 0;right: 0;margin-right: 2rem!important;margin-top: 1rem!important;">-' + game_info.offer_discount + '%</a>') : "") +
     '                                <p class="card-text">' + categories + '</p>' +
     '                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame controlGame" data-play="'+game_info.id_idcgame+'"><i class="fas fa-spinner fa-pulse"></i></button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.seo+'/">'+more_info_txt+'</a></div>' +
     '                            </div>' +
@@ -1019,6 +1019,10 @@ function doModal(index, game, target){
   var play_now_txt  = "Play Now!";
   var redeem_txt    = "Redeem Code";
   var prices = {};
+  var selected_paymethod_id = 0;
+  var selected_paymethod_name = 0;
+  var amount_purchase = 0;
+  var bought_data = "";
   
   /* User data */
   var currency = loadSession('currency');
@@ -1042,134 +1046,198 @@ function doModal(index, game, target){
   }
 
   /* Functions */
+  function set_basket_number(num)
+  {
+      $(".shopping-cart").find("span").text(num);
+  }
+  function watermark_basket_number()
+  {
+      var type = "rubberBand";
+      $(".shopping-cart").find("i").addClass(type);
+      $(".shopping-cart").find("span").addClass("bg-gray-900");
+  }
+  function show_basket_number()
+  {
+      var type = "rubberBand";
+      $(".shopping-cart").find("i").removeClass(type);
+      $(".shopping-cart").find("span").removeClass("bg-gray-900");
+  }
+  // @param id : identifier of item game/dlc
+  function addItemToCart(id, addOrRemove = 1, gameOrDlc = 1)
+  {
+    if(typeof(id) == "undefined")
+      return;
+
+    var cartInfo = JSON.parse(localStorage.getItem("idcgames_cart") || "{}") || {};
+    var key = (gameOrDlc ? "GAME_" : "DLC_") + id;
+
+    if(addOrRemove == 1 && cartInfo.hasOwnProperty(key))
+      return;
+    if(addOrRemove == 0 && !cartInfo.hasOwnProperty(key))
+      return;
+
+    var currentCount = cartInfo.count || 0;
+    if(addOrRemove)
+    {
+      cartInfo[key] = id;
+      currentCount ++;
+    }else{
+      delete cartInfo[key];
+      currentCount --;
+    }
+
+    cartInfo.count = currentCount;
+    localStorage.setItem("idcgames_cart", JSON.stringify(cartInfo));
+
+    setPrices();
+  }
+
+  function getCartItemCount()
+  {
+    var cartInfo = JSON.parse(localStorage.getItem("idcgames_cart") || "{}") || {};
+    return cartInfo.count || 0;
+  }
+
+  function isItemInCart(id, gameOrDlc = 1)
+  {
+    var cartInfo = JSON.parse(localStorage.getItem("idcgames_cart") || "{}") || {};
+    var key = (gameOrDlc ? "GAME_" : "DLC_") + id;
+    return (cartInfo.count > 0 && cartInfo.hasOwnProperty(key));
+  }
+
+  function clearCart()
+  {
+    localStorage.setItem("idcgames_cart", "{count: 0}");
+  }
+
+  function redrawCartItems()
+  {
+    var showCurrency = simbol || "€";
+    var total_price_original = 0;
+    var total_price_discount = 0;
+    var total_price_final = 0;
+
+    $(".cart-item-row").remove();
+    var cartInfo = JSON.parse(localStorage.getItem("idcgames_cart") || "{}") || {};
+    
+    var b_data = [];
+
+    for(var key in cartInfo)
+    {
+      if(!key.startsWith('GAME') && !key.startsWith('DLC'))
+        continue;
+
+      var info = getItemPrice(cartInfo[key], key.startsWith('GAME'));
+      $('<div class="col-12 row pb-2 cart-item-row"><div class="font-weight-bold col-md-1"><img src="' + info.logo + '" class="img-user setGameData" alt=""></div><div class="font-weight-bold col-md-4">' + info.name + '</div><div class=" col-md-2">' + `${info.price_original}${showCurrency}` + '</div><div class=" col-md-2" style="color:red">-' + `${(info.price_original*info.discount/100).toFixed(2)}${showCurrency}` + '</div><div class="font-weight-bold col-md-2 text-right">' + `${info.price}${showCurrency}` + '</div><div class="font-weight-bold col-md-1"><button class="btn-remove-cart-item btn btn-sm btn-secondary py-1 pl-2 pr-2" style="margin-top:-5px" data-game="' + `${cartInfo[key]}` + '" data-item-flag="' + `${info.gameOrDlc}` + '"><i class="fas fa-trash fa-xs"></i></button></div></div>')
+        .appendTo($(".cart-item-row-after"));
+
+      total_price_original += parseFloat(info.price_original);
+      total_price_discount += parseFloat((info.price_original*info.discount/100).toFixed(2));
+      total_price_final += parseFloat(info.price);
+
+      b_data.push({"type":info.gameOrDlc?"GAME":"DLC","id_idcgame":cartInfo[key],"price":info.price,"has_offer":info.has_offer,"offer_discount":parseFloat((info.price_original*info.discount/100).toFixed(2))});
+    }
+    
+    $(".cart-sum-row .price-origin").text(`${total_price_original.toFixed(2)}${showCurrency}`);
+    $(".cart-sum-row .price-discount").text(`-${total_price_discount.toFixed(2)}${showCurrency}`);
+    $(".cart-sum-row .price-final").text(`${total_price_final.toFixed(2)}${showCurrency}`);
+    
+    amount_purchase = total_price_final;
+    bought_data = JSON.stringify(b_data);
+  }
+
+  // @param id : id of game/dlc
+  // @return { price, currency, has_offer, discount }
+  function getItemPrice(id, gameOrDlc = 1)
+  {
+    var ret = { name: '', price: 0, price_original: 0, currency: currency, has_offer: false, discount: 0, id: id, gameOrDlc : gameOrDlc, logo : '' };
+    if(!gameOrDlc)
+      return ret;
+
+    if(typeof(gamedata[id].common_params.game_offer) == "object")
+    {
+      for(var i = 0; i < gamedata[id].common_params.game_offer.length; i ++)
+        ret.discount += gamedata[id].common_params.game_offer[i].discount || 0;
+      ret.has_offer = ret.discount > 0;
+    }
+
+    if( typeof(gamedata) == "object" ){
+      ret.logo = gamedata[id].common_params.game_logo;
+      ret.name = gamedata[id].common_params.game_name;
+      var price_info = gamedata[id].common_params.game_price;
+      if(typeof(price_info) != "undefined" ){
+				if( typeof(price_info[currency]) == "undefined" && currency != "EUR" ) {
+					ret.price = price_info[currency] * (100-ret.discount) / 100;
+          ret.price_original = price_info[currency];
+				}else if( typeof(price_info["EUR"]) != "undefined" ){
+					ret.price = price_info["EUR"] * (100-ret.discount) / 100;
+          ret.price_original = price_info["EUR"];
+				}else{
+					ret.price = 0;
+				}
+        ret.price = ret.price.toFixed(2);
+      }
+    }
+    
+    return ret;
+  }
+
   function setPrices(){
 		$(".price").each( function( i, e ){
 			var game = $(this).attr("data-play");
-			if( typeof(gamedata) == "object" ){
-				prices[game] = gamedata[game].common_params.game_price;
-			}
 			if( typeof(thisStatus) == "undefined" && typeof(gamedata) == "object" ){
 				var thisStatus = "s"+gamedata[game].common_params.game_status_id;
 			}
-      var offer_discount = 0;
-      if(typeof(gamedata[game].common_params.game_offer) == "object")
-      {
-        for(var i = 0; i < gamedata[game].common_params.game_offer.length; i ++)
-          offer_discount += gamedata[game].common_params.game_offer[i].discount || 0;
-      }
-
+			
+      var info = getItemPrice(game);
 			var playable = gameStatus[thisStatus].playable;
-			if( typeof(prices[game]) != "undefined" ){
-				if( typeof(prices[game][currency]) == "undefined" && currency != "EUR" ) {
-					var money = prices[game][currency] * (100-offer_discount) / 100;
-				}else if( typeof(prices[game]["EUR"]) != "undefined" ){
-					var money = prices[game]["EUR"] * (100-offer_discount) / 100;
-				}else{
-					var money = 0;
-				}
-				if( money > 0 || playable == 2 ){
-          money = (money || 0).toFixed(2);
-					$("body").append('<input type="hidden" data-toggle="modal" data-target=".modalprice" data-type="shop" id="buy'+game+'">');
-					if( loadSession('token') != false ){
-						if ( typeof(userGameData) == "undefined" ){
-							$.ajax({
-								type:"POST",
-								url:"/unilogin/checkPlayable.php",
-								data: 'token='+loadSession('token')+'&game='+game,
-								dataType: 'text',
-								async:true,
-								success: function(res){	
-									try{
-										var jsonRes = JSON.parse( res );
-									}catch(e){
-										console.log("Not registered in game");
-									}
-									var purchased = 0;
-									if( jsonRes.rc == 200 ){
-										var purchased = 1;
-									}
-									controlStatus(game,thisStatus,money,purchased);
-								},
-								error: function(){  
-									controlStatus(game,thisStatus,money,0);
-								}
-							});
-						}else if( typeof(userGameData[game]) == "boolean" ) {
-							controlStatus(game,thisStatus,money,1);
-						}else{
-							controlStatus(game,thisStatus,money,0);
-						}
-					}else{
-						controlStatus(game,thisStatus,money,0);
-					}
-				}else{
-					controlStatus(game,thisStatus,0,0);
-				}
-			}
-		});
-	}
 
-  function setPricesSearch(){
-    $.each( search_result, function( index, value ){
-      if(value.id_idcgame == null || value.id_idcgame == "0")
-        return;
-
-      var price_tag = $(`.price[data-play=${value.id_idcgame}]`);
-      var game = value.id_idcgame;
-      var game_info = value;
-
-      var offer_discount = game_info.has_offer ? game_info.offer_discount : 0;
-      prices[game] = game_info.price;
-      var playable = gameStatus[game_info.status].playable;
-      if( typeof(prices[game]) != "undefined" ){
-        if( typeof(prices[game][currency]) == "undefined" && currency != "EUR" ) {
-          var money = prices[game][currency] * (100-offer_discount) / 100;
-        }else if( typeof(prices[game].EUR) != "undefined" ){
-          var money = prices[game].EUR * (100-offer_discount) / 100;
-        }else{
-          var money = 0;
-        }
-        if( money > 0 || playable == 2 ){
-          money = parseFloat(money).toFixed(2);
-          $("body").append('<input type="hidden" data-toggle="modal" data-target=".modalprice" data-type="shop" id="buy'+game+'">');
-          if( loadSession('token') != false ){
-            if ( typeof(userGameData) == "undefined" ){
-              $.ajax({
-                type:"POST",
-                url:"/unilogin/checkPlayable.php",
-                data: 'token='+loadSession('token')+'&game='+game,
-                dataType: 'text',
-                async:true,
-                success: function(res){ 
-                  try{
-                    var jsonRes = JSON.parse( res );
-                  }catch(e){
-                    console.log("Not registered in game");
-                  }
-                  var purchased = 0;
-                  if( jsonRes.rc == 200 ){
-                    var purchased = 1;
-                  }
-                  controlStatus(game,game_info.status,money,purchased);
-                },
-                error: function(){  
-                  controlStatus(game,game_info.status,money,0);
+      if( info.price > 0 || playable == 2 ){
+        $("body").append('<input type="hidden" data-toggle="modal" data-target=".modalprice" data-type="shop" id="buy'+game+'">');
+        if( loadSession('token') != false ){
+          if ( typeof(userGameData) == "undefined" ){
+            $.ajax({
+              type:"POST",
+              url:"/unilogin/checkPlayable.php",
+              data: 'token='+loadSession('token')+'&game='+game,
+              dataType: 'text',
+              async:true,
+              success: function(res){	
+                try{
+                  var jsonRes = JSON.parse( res );
+                }catch(e){
+                  console.log("Not registered in game");
                 }
-              });
-            }else if( typeof(userGameData[game]) == "boolean" ) {
-              controlStatus(game,game_info.status,money,1);
-            }else{
-              controlStatus(game,game_info.status,money,0);
-            }
+                var purchased = 0;
+                if( jsonRes.rc == 200 ){
+                  var purchased = 1;
+                }
+                controlStatus(game,thisStatus,info.price,purchased);
+              },
+              error: function(){  
+                controlStatus(game,thisStatus,info.price,0);
+              }
+            });
+          }else if( typeof(userGameData[game]) == "boolean" ) {
+            controlStatus(game,thisStatus,info.price,1);
           }else{
-            controlStatus(game,game_info.status,money,0);
+            controlStatus(game,thisStatus,info.price,0);
           }
         }else{
-          controlStatus(game,game_info.status,0,0);
+          controlStatus(game,thisStatus,info.price,0);
         }
+      }else{
+        controlStatus(game,thisStatus,0,0);
       }
-    });
-  }
+		});
+
+    watermark_basket_number();
+    setTimeout(function(){
+      set_basket_number(getCartItemCount());
+      show_basket_number();
+    }, 100);
+	}
+
   function controlStatus(game,status,price,purchased){
     var text = gameStatus[status].name;
     if( price == 0 ){
@@ -1199,14 +1267,25 @@ function doModal(index, game, target){
         $(".price[data-play='"+game+"']").text(price + " " + simbol);
         $(".price[data-play='"+game+"']").addClass("buyGame");
         $(".controlGame[data-play='"+game+"']").addClass("buyGame");
+
+        if(isItemInCart(game))
+        {
+          $('<span class="in-cart" data-play=' + game + ' style="background-color:orangered; border-radius:5px 5px 5px 5px; padding:5px; position: absolute; top: 0; margin-right: 2rem!important;    margin-top: 1rem!important;"><i class="fas fa-shopping-cart"></i> IN CART</span>').insertBefore($(".price[data-play='"+game+"']"));
+          $(".price[data-play='"+game+"']").attr("in-cart", "in-cart");
+        }else{
+          $(".in-cart[data-play='"+game+"']").remove();
+          $(".price[data-play='"+game+"']").prepend('<i class="fas fa-shopping-cart">&nbsp;&nbsp;</i>');
+          $(".price[data-play='"+game+"']").removeAttr("in-cart");
+        }
       }else if ( gameStatus[status].redeemable == 1 && gameStatus[status].purchasable == 0){
         $(".price[data-play='"+game+"']").text(redeem_txt);
         $(".price[data-play='"+game+"']").addClass("buyGame");
         $(".controlGame[data-play='"+game+"']").addClass("buyGame");
       }else if ( gameStatus[status].redeemable == 0 && gameStatus[status].purchasable == 0 && price > 0){
         $(".price[data-play='"+game+"']").text(price + " " + simbol);
-      }
+      }      
     }
+
   }
   function buyGame(game) {
     if ( typeof(gamedata[game]) != "undefined" ) {
@@ -1454,11 +1533,11 @@ function doModal(index, game, target){
               <span>Price Range</span>
               <hr class="py-1"/>
               <ul class="nav nav-pills" id="price-sel-tab" role="tablist">
-                <li class="nav-item w-100"><a class="nav-link h6 mb-0 active text-center" id="price-free-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_free" aria-selected="true">Free</a></li>
+                <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-free-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_free" aria-selected="true">Free</a></li>
                 <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-5-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_u5" aria-selected="false">Under $5</a></li>
                 <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-10-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_u10" aria-selected="false">Under $10</a></li>
                 <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-25-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_u25" aria-selected="false">Under $25</a></li>
-                <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-50-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_u50" aria-selected="false">Under $50</a></li>
+                <li class="nav-item w-100"><a class="nav-link h6 mb-0 active text-center" id="price-50-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_u50" aria-selected="false">Under $50</a></li>
                 <li class="nav-item w-100"><a class="nav-link h6 mb-0 text-center" id="price-a-50-tab" data-toggle="pill" href="#" role="tab" aria-controls="price_a10" aria-selected="false">Above $50</a></li>
               </ul>
             </div>
@@ -1789,6 +1868,201 @@ function doModal(index, game, target){
       </div>
     </div>
   </div>
+
+  <div class="modal fade modaldirectpay" tabindex="-1" role="dialog" aria-labelledby="ModalImg" aria-hidden="true">
+		<div class="modal-dialog modal-dlc modal-dialog-centered container-fluid" id="ModalDirectPay">
+			<div class="modal-content modal-bg-img flex-lg-row flex-column">
+				<div class="col-12 p-0 d-flex flex-column">
+					<div class="modal-header">                   
+						<div class="d-flex flex-row align-items-baseline">
+							<div class="col-auto p-0">
+								<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+							</div>
+							<div class="col-11">
+								<p class="fontSecondarySmall m-0">==(buy_txt)==</p>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<!-- </div> -->
+					<div class="container modal-body my-sm-2">
+						<div>
+							<div class="d-flex flex-sm-row flex-column">
+								<div class="col-sm-6 pb-sm-0 pb-3" style="border-right: 1px solid lightgreen">
+                  <div class="col-12">
+                    <span><h3 class="text-white">Cart Items</h3></span>
+                  </div>
+                  <hr class="border-green-lighter">
+                  <div class="p-0 m-0 cart-item-row-after" style="overflow:auto; max-height: 500px;">
+                    <div class="col-12 row pb-2 cart-item-row d-none">
+                      <div class="font-weight-bold col-md-1">
+                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+                      </div>
+                      <div class="font-weight-bold col-md-4">Physcial</div>
+                      <div class=" col-md-2">110$</div>
+                      <div class=" col-md-2" style="color:red">-10$</div>
+                      <div class="font-weight-bold col-md-2 text-right">100$</div>
+                      <div class="font-weight-bold col-md-1"><button class="btn-remove-cart-item btn btn-sm btn-secondary py-1 pl-2 pr-2" style="margin-top:-5px" data-game="149" data-item-flag="1"><i class="fas fa-trash fa-xs"></i></button></div>                    
+                    </div>
+                    <div class="col-12 row pb-2 cart-item-row d-none">
+                      <div class="font-weight-bold col-md-1">
+                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+                      </div>
+                      <div class="font-weight-bold col-md-4">Physcial</div>
+                      <div class=" col-md-2">110$</div>
+                      <div class=" col-md-2" style="color:red">-10$</div>
+                      <div class="font-weight-bold col-md-2 text-right">100$</div>
+                      <div class="font-weight-bold col-md-1"><button class="btn btn-sm btn-secondary py-1 pl-2 pr-2" style="margin-top:-5px"><i class="fas fa-trash fa-xs"></i></button></div>                    
+                    </div>
+                    <div class="col-12 row pb-2 cart-item-row d-none">
+                      <div class="font-weight-bold col-md-1">
+                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+                      </div>
+                      <div class="font-weight-bold col-md-4">Physcial</div>
+                      <div class=" col-md-2">110$</div>
+                      <div class=" col-md-2" style="color:red">-10$</div>
+                      <div class="font-weight-bold col-md-2 text-right">100$</div>
+                      <div class="font-weight-bold col-md-1"><button class="btn btn-sm btn-secondary py-1 pl-2 pr-2" style="margin-top:-5px"><i class="fas fa-trash fa-xs"></i></button></div>                    
+                    </div>
+                  </div>
+                  <hr class="border-green-lighter">
+                  <div class="col-12 row cart-sum-row">
+                    <div class="font-weight-bold col-md-5">TOTAL</div>
+                    <div class="col-md-2 price-origin">110$</div>
+                    <div class="col-md-2 price-discount" style="color:red">-10$</div>
+                    <div class="font-weight-bold col-md-2 text-right price-final">100$</div>
+                  </div>
+								</div>
+								<div class="col-sm-6">
+									<div class="">
+										<h6 class="h2 text-primary" data-group="common_params" data-type="price" data-target="text">Available Pay methods</h6>
+                  </div>
+                  <div class="p-0 m-0 paymethod-row-after" style="overflow:auto; max-height: 500px;">
+                    <div class="loading-paymethods d-none">
+                      <span><i class="fas fa-spinner fa-pulse"></i>Loading ...</span>
+                    </div>
+                  
+                    <div class="col-12 row pb-2 pt-1 paymethod-row">
+                      <div class="font-weight-bold col-md-1" style="text-align: left;"><button class="btn-sel-paymethod btn btn-sm btn-secondary py-1 pl-0 pr-0" data-pmp-id="2" data-paymethod-name="Paypal" style="margin-top:-5px; background:transparent; border: none"><i class="fas fa-dot-circle"></i></button></div>                    
+                      <div class="font-weight-bold col-md-10">
+                        <img src="http://idcpayment.localhost/storage/12/conversions/logo-paypal-thumb.jpg" class="img-user" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+                        Paypal
+                      </div>
+                    </div>
+                    <div class="col-12 row pb-2 pt-1 paymethod-row">
+                      <div class="font-weight-bold col-md-1" style="text-align: left;"><button class="btn-sel-paymethod btn btn-sm btn-secondary py-1 pl-0 pr-0" data-pmp-id="1" data-paymethod-name="Paypal Sec" style="margin-top:-5px; background:transparent; border: none"><i class="fas fa-dot-circle"></i></button></div>                    
+                      <div class="font-weight-bold col-md-10">
+                        <img src="http://idcpayment.localhost/storage/12/conversions/logo-paypal-thumb.jpg" class="img-user" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+                        Paypal
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 row text-right mt-5">
+                    <button class="btn btn-primary btn-proceed-payment"><span class="text_purchase">BUY WITH PAYPAL</span><span class="logo_purchase d-none"><i class="fas fa-spinner fa-pulse"></i></span></button>
+                    <div class="purchaseStatus d-none alert alert-success text-center mt-4 mx-3 w-100" id="purchase_ok" role="alert"><i class="far fa-check-circle mr-3"></i> ==(purchase_ok)== </div>
+                    <div class="purchaseStatus d-none alert alert-light text-center mt-4 mx-3 w-100" id="insufficient_funds" role="alert"><i class="far fa-check-circle mr-3"></i> ==(insufficient_funds)== </div>
+                    <div class="purchaseStatus d-none alert alert-danger text-center mt-4 mx-3 w-100" id="purchase_problem" role="alert"><i class="far fa-check-circle mr-3"></i> ==(purchase_problem)== </div>
+                    <div class="purchaseStatus d-none alert alert-danger text-center mt-4 mx-3 w-100" id="already_purchased" role="alert"><i class="far fa-check-circle mr-3"></i> ==(already_purchased)== </div>
+                    <div class="purchaseStatus something-wrong d-none alert alert-danger text-center mt-4 mx-3 w-100" role="alert"><i class="far fa-check-circle mr-3"></i> Something wrong in payment...</div>
+                    <div class="purchaseStatus empty-cart d-none alert alert-danger text-center mt-4 mx-3 w-100" role="alert"><i class="far fa-check-circle mr-3"></i> Cart is empty! </div>
+                    <div class="purchaseStatus select-paymethod d-none alert alert-danger text-center mt-4 mx-3 w-100" role="alert"><i class="far fa-check-circle mr-3"></i> Please select paymethod and proceed. </div>
+                  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container-fluid modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+						<div class="col-12">
+							<p class="h6 text-secondary text-right mb-0 setGameData" data-group="store_params" data-type="meta_titles" data-target="text">IDC/Games</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div class="modal fade modalprice" tabindex="-1" role="dialog" aria-labelledby="ModalImg" aria-hidden="true">
+		<div class="modal-dialog modal-dlc modal-dialog-centered container-fluid" id="ModalPricing">
+			<div class="modal-content modal-bg-img flex-lg-row flex-column">
+				<div class="col-12 p-0 d-flex flex-column">
+					<div class="modal-header">                   
+						<div class="d-flex flex-row align-items-baseline">
+							<div class="col-auto p-0">
+								<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+							</div>
+							<div class="col-11">
+								<p class="fontSecondarySmall m-0">==(buy_txt)==</p>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<!-- <div class="modal-header d-flex flex-column bg-dark p-0"> -->
+						<!-- <img src="#" class="modal-dlc-img rounded-top setGameData" data-group="store_params" data-type="game_home_bg_section_2" data-target="src" alt="IDC/Games"> -->
+						<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+							<!-- <span aria-hidden="true">&times;</span> -->
+						<!-- </button> -->
+
+					<!-- </div> -->
+					<div class="container modal-body my-sm-5 my-3">
+						<div>
+							<div class="d-flex flex-sm-row flex-column">
+								<div class="col-sm-3 d-flex align-items-center justify-content-center pb-sm-0 pb-3 bg-dark-translucid">
+									<img src="#" class="img-fluid img-zoom setGameData" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">
+								</div>
+								<div class="col-sm-9">
+									<div>
+										<span><h2 class="h1 font-weight-bold text-white setGameData" data-group="common_params" data-type="game_name" data-target="text">IDC/Games</h2></span>
+									</div>
+									<div class="lineaHorizontalAncha primaryColorBg active aos-init aos-animate" data-aos="slide-right" data-aos-duration="600"></div>
+									<div>
+										<h6 class="h2 text-primary setGameData" data-group="common_params" data-type="price" data-target="text">==(free_to_play)==</h6>
+									</div>
+									<p class="card-text setGameData" data-group="store_params" data-type="game_large_description" data-target="code">==(play_now_txt)==</p>
+								</div>
+							</div>
+
+							<hr class="border-green-lighter my-4">
+							<div class="d-flex flex-md-row flex-column-reverse">
+								<div class="d-flex flex-column col-md-7 col-12 mt-3 mb-md-3 mb-2 px-0">
+									<p class="h3 text-primary">==(check_article_payment)==</p>
+									<p class="text-primary">==(amount_charged_account)==</p>
+								</div>
+								<div class="d-flex flex-column col-md-5 col-12 px-0 pb-md-0 pb-3">
+									<p class="d-flex flex row justify-content-md-end h5 text-secondary mx-1">==(balance_account)==: <span class="ml-1 mymoney"> </span></p>
+									<div class="d-flex justify-content-md-end">
+										<!-- <button class="btn btn-sm btn-secondary chargeWallet" type="button" data-toggle="modal" data-target=".rechargeModal">==(charge_wallet)==</button> -->
+									</div>
+								</div>
+
+							</div>
+							<p class="btn btn-primary commingSoon d-none"></p>
+							<button class="btn btn-primary setGameData confirmPurchase completePurchase" data-group="common_params" data-type="id_idcgame" data-target="data-game" data-game="0"><span class="text_purchase">==(buy_from_wallet)==</span><span class="logo_purchase d-none"><i class="fas fa-spinner fa-pulse"></i></span></button>
+							<!-- <button class="btn btn-primary setGameData confirmPurchase completePurchaseDirect ml-2" data-group="common_params" data-type="id_idcgame" data-target="data-game" data-game="0"><span class="text_purchase" type="button" data-toggle="modal" data-target=".directpay" >==(direct_pay)==</span><span class="logo_purchase d-none"><i class="fas fa-spinner fa-pulse"></i></span></button> -->
+							<button class="btn btn-secondary ml-2 redeemButton" type="button" data-toggle="modal" data-target=".redeemCodeModal">==(redeem_code)==</button>
+							<div class="d-flex flex-sm-row flex-column">
+								<div class="purchaseStatus d-none alert alert-success text-center mt-4 mx-3 w-100" id="purchase_ok" role="alert"><i class="far fa-check-circle mr-3"></i> ==(purchase_ok)== </div>
+								<div class="purchaseStatus d-none alert alert-light text-center mt-4 mx-3 w-100" id="insufficient_funds" role="alert"><i class="far fa-check-circle mr-3"></i> ==(insufficient_funds)== </div>
+								<div class="purchaseStatus d-none alert alert-danger text-center mt-4 mx-3 w-100" id="purchase_problem" role="alert"><i class="far fa-check-circle mr-3"></i> ==(purchase_problem)== </div>
+								<div class="purchaseStatus d-none alert alert-danger text-center mt-4 mx-3 w-100" id="already_purchased" role="alert"><i class="far fa-check-circle mr-3"></i> ==(already_purchased)== </div>
+							</div>
+						</div>
+					</div>
+					<div class="container-fluid modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+						<div class="col-12">
+							<p class="h6 text-secondary text-right mb-0 setGameData" data-group="store_params" data-type="meta_titles" data-target="text">IDC/Games</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 </main>
 
@@ -2494,12 +2768,15 @@ $("body").on( "click", ".chargeWallet", function() {
 });
 $("body").on( "click", ".buyGame", function() {
   var gameId = $(this).attr("data-play");
+  addItemToCart(gameId, $(".price[data-play='"+gameId+"']").attr("in-cart") ? 0 : 1);
+  return;
+
   if( loadSession('token') != false){
     if( loadedUD == 0 ){
       loadUserData();
     }
     if( gameId != undefined ){
-      buyGame(gameId );
+      buyGame(gameId);
     }
   }else{
     $("[data-target='.loginModal']:first").click();
@@ -2518,6 +2795,114 @@ $('.rechargeModal').on('hide.bs.modal', function(e) {
 $("body").on( "click", "#redeemCode", function() {
   redeemCode();
 });
+
+$('.modaldirectpay').on('shown.bs.modal', function(e) {
+  console.log("Getting available payment methods from idcpayment...");
+  $(".text_purchase").text("SELECT Paymethod and Proceed");
+  selected_paymethod_id = 0;
+
+  $(".paymethod-row").remove();
+  $(".loading-paymethods").removeClass("d-none");
+
+  $.ajax({
+    type:"POST",
+    url:"/unilogin/request_idcpayment.php?action=get_pmp_list",
+    //url:"http://idcpayment.localhost/api/v1/idcgames/get_pmp_list",
+    data: `token=${loadSession('token')}`,
+    dataType: 'text',
+    async:true,
+    success: function(json){
+      var result = JSON.parse(json);
+      if (result.success == true){
+        console.log(result.pmp);
+        for(var i = 0; i < result.pmp.length; i ++)
+        {
+          $('<div class="col-12 row pb-2 pt-1 paymethod-row"><div class="font-weight-bold col-md-1" style="text-align: left;"><button class="btn-sel-paymethod btn btn-sm btn-secondary py-1 pl-0 pr-0" data-pmp-id="' + result.pmp[i].pmp_id + '" data-paymethod-name="' + result.pmp[i].name + '" style="margin-top:-5px; background:transparent; border: none"><i class="fas fa-circle"></i></button></div><div class="font-weight-bold col-md-10"><img src="' + result.pmp[i].thumb + '" class="img-user pr-1" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">' + result.pmp[i].name + '</div></div>').appendTo($(".paymethod-row-after"));
+        }
+      }
+
+      $(".loading-paymethods").addClass("d-none");
+    },
+    error: function(){  
+      console.log("Error getting game pmp data");
+      $(".loading-paymethods").addClass("d-none");
+    }
+  });
+
+  // refresh cart items
+  redrawCartItems();
+});
+$("body").on( "click", ".btn-sel-paymethod", function() {
+  $(".btn-sel-paymethod i").attr("class", "fas fa-circle");
+
+  $(this).find("i").attr("class", "fas fa-dot-circle");
+
+  selected_paymethod_id = $(this).attr("data-pmp-id");
+  selected_paymethod_name = $(this).attr("data-paymethod-name");
+  $(".text_purchase").text("BUY WITH " + selected_paymethod_name);
+});
+
+$("body").on( "click", ".btn-remove-cart-item", function() {
+  addItemToCart($(this).attr("data-game"), 0, $(this).attr("data-item-flag"));
+  redrawCartItems();
+});
+
+$("body").on( "click", ".btn-proceed-payment", function() {
+  if(selected_paymethod_id == 0)
+  {
+    $(".purchaseStatus.select-paymethod").removeClass("d-none");
+      setTimeout(function(){
+        $(".purchaseStatus").addClass("d-none");
+      }, 2000);
+    return;
+  }else if(amount_purchase <= 0)
+  {
+    $(".purchaseStatus.empty-cart").removeClass("d-none");
+      setTimeout(function(){
+        $(".purchaseStatus").addClass("d-none");
+      }, 2000);
+    return;
+  }
+
+  var this_btn = this;
+
+  $(this_btn).find(".text_purchase").addClass("d-none");
+  $(this_btn).find(".logo_purchase").removeClass("d-none");
+
+  $.ajax({
+    type:"POST",
+    url:"/unilogin/request_idcpayment.php?action=create_transaction",
+    data: `token=${loadSession('token')}&amount=${amount_purchase}&bought_data=${bought_data}&currency=${currency.toUpperCase()}&pmp_id=${selected_paymethod_id}&id_idcuser=${getCookie('id')}&redirect_on_success=https://${lang}.idcgames.net/clear-cart&redirect_on_fail=https://${lang}.idcgames.net`,
+    dataType: 'text',
+    async:true,
+    success: function(json){
+      var result = JSON.parse(json);
+      if(result && result.success && result.transaction_id && result.pmpc_id){
+        window.open(`https://idcpayment.com/payment/idcgames/begin_transaction/${result.transaction_id}/${lang.toUpperCase()}/${result.pmpc_id}`);
+      }else{
+        console.log("Something wrong in creating payment transaction - response error");
+        $(".purchaseStatus.something-wrong").removeClass("d-none");
+        setTimeout(function(){
+          $(".purchaseStatus").addClass("d-none");
+        }, 2000);  
+      }
+
+      $(this_btn).find(".text_purchase").removeClass("d-none");
+      $(this_btn).find(".logo_purchase").addClass("d-none");
+    },
+    error: function(){  
+      console.log("Something wrong in creating payment transaction - connection error");
+      $(this_btn).find(".text_purchase").removeClass("d-none");
+      $(this_btn).find(".logo_purchase").addClass("d-none");
+
+      $(".purchaseStatus.something-wrong").removeClass("d-none");
+      setTimeout(function(){
+        $(".purchaseStatus").addClass("d-none");
+      }, 2000);
+    }
+  });
+});
+
 if( getCookie("aceptado") == 1){
   $(".closeCookiesBox").removeClass("d-flex");
   $(".closeCookiesBox").addClass("d-none");
@@ -2529,5 +2914,6 @@ if( getCookie("aceptado") == 1){
 </html>
 
 <script>
-  $('<li class="nav-item pr-2"><button class="shopping-cart bg-primary box-shadow animated" data-toggle="modal" data-target=".modal3"><i class="fas fa-shopping-cart text-dark animated"></i><span class="badge adge-pill badge-secondary position-absolute animated" style="right: 2px;top: 2px;">0</span></button></li>').insertAfter($(".navbar .nav-item.logged:first"));
+  $('<li class="nav-item pr-2"><button class="shopping-cart bg-primary box-shadow animated" data-toggle="modal" data-target=".modaldirectpay"><i class="fas fa-shopping-cart text-dark animated"></i><span class="badge adge-pill badge-secondary position-absolute animated" style="right: 2px;top: 2px;">0</span></button></li>').insertAfter($(".navbar .nav-item.logged:first"));
+  submitFilter();
 </script>
