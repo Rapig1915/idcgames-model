@@ -888,6 +888,7 @@ function buildGameMini(game_info, recent=0){
     '                            <div class="card-body mt-4 mr-4">' +
     '                                <div class="d-flex"><a class="text-white" href="/'+game_info.seo+'/"><h3 class="card-title display-4 bordered-bottom border-expanded-left text-shadow pr-2">' + game_info.name + '</h3></a></div>' +
     '                                <a href="/free-to-play/" class="btn btn-secondary animated fadeInLeft fast corner price" data-play="'+game_info.id_idcgame+'"></a>' +
+    (game_info.has_offer ? '                                <a href="#" class="btn btn-sm btn-danger animated fadeInLeft fast" style="position: absolute;top: 0;right: 0;margin-right: 2rem!important;margin-top: 1rem!important;">-' : ":") + game_info.offer_discount + '%</a>' +
     '                                <p class="card-text">' + categories + '</p>' +
     '                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame controlGame" data-play="'+game_info.id_idcgame+'"><i class="fas fa-spinner fa-pulse"></i></button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.seo+'/">'+more_info_txt+'</a></div>' +
     '                            </div>' +
@@ -922,6 +923,12 @@ function doFilter()
       }
     }
   }
+
+  $("#searchGameName").on('keyup', function (e) {
+    if (e.keyCode === 13) {
+        submitFilter();
+    }
+  });
 }
 function clearFilter()
 {
@@ -944,7 +951,7 @@ function submitFilter()
 
   $.ajax({
     type:"POST",
-    url:"/assets/search/searchFilter.php",
+    url:"/assets/search/searchfilter.php",
     data: `token=${loadSession('token')}&name=${name}&category=${category}&price=${price}&has_offer=${has_offer}`,
     dataType: 'text',
     async:true,
@@ -1032,17 +1039,19 @@ function doModal(index, game, target){
       var game = value.id_idcgame;
       var game_info = value;
 
+      var offer_discount = game_info.has_offer ? game_info.offer_discount : 0;
       prices[game] = game_info.price;
       var playable = gameStatus[game_info.status].playable;
       if( typeof(prices[game]) != "undefined" ){
         if( typeof(prices[game][currency]) == "undefined" && currency != "EUR" ) {
-          var money = prices[game][currency];
+          var money = prices[game][currency] * (100-offer_discount) / 100;
         }else if( typeof(prices[game].EUR) != "undefined" ){
-          var money = prices[game].EUR;
+          var money = prices[game].EUR * (100-offer_discount) / 100;
         }else{
           var money = 0;
         }
         if( money > 0 || playable == 2 ){
+          money = parseFloat(money).toFixed(2);
           $("body").append('<input type="hidden" data-toggle="modal" data-target=".modalprice" data-type="shop" id="buy'+game+'">');
           if( loadSession('token') != false ){
             if ( typeof(userGameData) == "undefined" ){
