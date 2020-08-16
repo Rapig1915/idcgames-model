@@ -1,0 +1,122 @@
+/*
+======================================================================================================================
+REGISTER/LOGIN CSS IDC GAMES
+======================================================================================================================
+*/
+.bgRegister {
+	background-image: url("../img/login/idc-games-background.jpg");
+	background-repeat: no-repeat;
+}
+@media (max-width: 991px) {
+	.bgRegister {
+		height: 25vh;
+		background-position: center center;
+	}
+}
+
+.alredyRegistered {
+	position: absolute;
+	top: 15px;
+}
+
+.alredyRegistered .lineaHorizontalEstrecha {
+	width: 40%;
+	float: right;
+}
+
+.formularyAccount .lineaHorizontalAncha {
+	max-width: 60%;
+}
+
+.btn-google {
+	height: 46px;
+	width: 191px;
+	background-image: url("../img/login/btn_google_signin_light_normal_web.png");
+	background-repeat: no-repeat;
+}
+
+.btn-google:hover {
+	background-image: url("../img/login/btn_google_signin_light_focus_web.png");
+}
+
+.btn-google:active {
+	background-image: url("../img/login/btn_google_signin_light_pressed_web.png");
+}
+
+.btn-google:disabled {
+	background-image: url("../img/login/btn_google_signin_light_disabled_web.png");
+}
+
+.btn-facebook {
+	height: 40px;
+	width: 248px;
+	background-image: url("../img/login/fb.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.btn-others {
+	height: 40px;
+	width: 185px;
+	border-radius: 2px;
+}
+
+.btn-social {
+	max-height: 46px;
+	padding: 10px;
+	text-align: left;
+	border-radius: 2px;
+	white-space: nowrap;
+}
+
+.btn-social:focus {
+ outline:0;
+ box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+}
+
+.btn-msn {
+    color: #fff;
+    background-color: #3f729b;
+    max-height: 41px;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-msn img {
+	max-height: 22px;
+}
+
+.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-yahoo {
+    color: #fff;
+    background-color: #720e9e;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-steam {
+    color: #fff;
+    background-color: #77A934;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+/* New */
+
+/* // User info */
+.col-form-label.h4 {    
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+.btn-link-custom{
+	font-family: "Jura"!important;
+	font-size: 1rem!important;
+	font-weight: 500!important;
+	line-height: 1.5!important;
+}
+.display-none-custom {
+	display: none;
+}

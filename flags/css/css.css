@@ -1,0 +1,2077 @@
+/*
+======================================================================================================================
+CSS IDC GAMES
+GENERAL OPTIONS: FONTS
+======================================================================================================================
+*/
+
+body {
+    position: relative;
+	background-color: black;
+	color: #fff;
+	font-family: 'Jura', sans-serif;
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+    overflow-x: hidden;
+}
+
+
+/*
+======================================================================================================================
+Sidebar-nav -- Menú lateral de navegación en IDC
+======================================================================================================================
+*/
+.sidenav {
+    background-image: url("../img/textures/noisy_net.png");
+}
+
+ .sidenav.sidenav-after {
+    background-image: url("../img/textures/noisy_net.png");
+}
+
+/*
+======================================================================================================================
+Menú lateral derecho -- Dotnav -- Navegación en la página
+======================================================================================================================
+*/
+.dot-nav {
+    position: fixed!important;
+    right: 0;
+    height: 100vh;
+    z-index: 500;
+}
+
+.dot-nav {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.dot-nav .nav-link {
+    width: 30px;
+    height: 10px;
+    background: #00FF7F;
+    opacity: 1;
+    padding: 0;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;/* Chrome < 26, Safari < 7 */
+    -moz-transition: -moz-transform 0.2s ease-in-out;/* Firefox < 16 */
+    -o-transition: -o-transform 0.2s ease-in-out;/* Opera < 12.10 */
+    transition: -webkit-transform 0.2s ease-in-out;/* Chrome 26-35, Safari, Opera 15-23 */
+    transition: transform 0.2s ease-in-out; /* IE10+, Firefox 16+, Chrome 36+, Opera 12.10 */
+
+}
+
+.dot-nav .nav-link.active span {
+    display: block;
+    opacity: 1;
+    z-index: 501;
+}
+
+.dot-nav .nav-link span {
+    text-transform: capitalize;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg); /* Standard syntax */
+    -webkit-transform-origin: 15% 40%;
+    -moz-transform-origin: 15% 40%;
+    -ms-transform-origin: 15% 40%;
+    -o-transform-origin: 15% 40%;
+    transform-origin: 15% 40%;
+    display: none;
+    min-width: 120px;
+    padding: 3px 10px;
+    line-height: 1.2em;
+    text-align: center;
+    background: #66ffb2;
+    color: black;
+    box-shadow: 1px 3px 8px 3px rgba(0,0,0,0.2);
+}
+
+.dot-nav .nav-link:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+    z-index: 503;
+}
+
+.dot-nav .nav-link.active {
+    opacity: 1;
+    background: #66ffb2;
+    min-height: 110px;
+    display: block;
+}
+
+/*
+======================================================================================================================
+Menú específico del juego Top
+======================================================================================================================
+*/
+
+.nav-custom-after {
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+}
+
+.nav-custom-after .dropdown-menu {
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+}
+
+/*
+======================================================================================================================
+Lottie icons
+======================================================================================================================
+*/
+.lottie2 {
+    width: 80%;
+    height: 80%;
+    transform: rotate(90deg);
+}
+
+#lottie2 svg path {
+    fill: rgb(0,255,126);   
+}
+
+
+
+/*
+======================================================================================================================
+Footer
+======================================================================================================================
+*/
+
+/*
+======================================================================================================================
+Página de Juego
+======================================================================================================================
+*/
+
+/*
+======================================================================================================================
+Zula
+======================================================================================================================
+*/
+
+/*nuevas rutas de img*/
+.logo h1 {
+  background-image: url(../img/zula/logo-zula-black.png);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+  @media (min-width: 576px) {
+    .logo h1 {
+      height: 130px;
+    }
+  }
+  @media (min-width: 480px) and (max-width: 575px) {
+    .logo h1 {
+      height: 120px;
+    }
+  }
+  @media (max-width: 479px) {
+    .logo h1 {
+      height: 80px;
+    }
+  }
+
+.zula .bg1{
+    background: url(../img/zula/texture2.png) top no-repeat;
+    opacity: .8;
+}
+
+.zula .pj2 {
+    max-width: 100em;
+    width: 65%;
+    right: 20%;
+    background: url(../img/zula/pj2.png) center bottom no-repeat;
+    background-size: contain;
+}
+
+.zula .bg2{
+    background: url(../img/zula/bg2.jpg) center no-repeat;
+    background-attachment: fixed;
+}
+
+.zula .parallax-bg-container .pj3 {
+    position: absolute;
+    top: -32%;
+    left: 1%;
+    max-width: 967px;
+    width: 100%;
+    height: 100%;
+    background: url(../img/zula/pj3.png) center bottom no-repeat;
+    background-size: auto auto;
+    background-size: contain;
+    z-index: 1;
+    transform: rotate(-10deg);
+}
+        @media (max-width: 767px) {
+        .parallax-bg-container .pj3 {
+            top: -22%;
+            left: 0;
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+.parallax-bg-container .pj3.active {
+    perspective: 1px;
+    transform-style: preserve-3d;
+    opacity: 1;
+    transform: translateZ(.25px) scale(.75) translateX(-60%) translateY(-20%) rotate(1deg);
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 1s;
+}
+
+.zula .lastNew::after {
+    background: url(../img/zula/bg3.jpg) center no-repeat;
+}
+
+.zula .stnGuiasColPatchnotes::after {
+    background: url(../img/zula/bg-patchnotes.jpg) center no-repeat;
+    opacity: 0.8;
+}
+
+.zula .stnGuiasColGuias::after {
+    background: url(../img/zula/zula-bg-sm-1.jpg) center no-repeat;
+    opacity: 0.8;
+}
+
+.zula .bgStnForos::after {
+    background: url(../img/zula/bg4.jpg) top no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5;
+}
+
+.zula .stnArtworkColArtwork::after {
+    background: url(../img/zula/bg-zula-artwork1.jpg) center no-repeat;
+    opacity: 1;
+}
+
+.zula .stnArtworkColVideo {
+    background: rgba(78, 0, 255, 0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.3), rgba(27,29,44,0.6)); 
+}
+
+.zula .stnArtworkColVideo::after {
+    background: url(../img/zula/zula-bg-md-2.jpg) center no-repeat;
+    opacity: 0.9;  
+}
+
+.zula .stnArtworkColTutorial::after {
+    background: url(../img/zula/bg-zula-artwork2.jpg) left no-repeat;
+    opacity: 0.9;
+}
+
+.zula .stnArtworkColTutorial {
+    position: relative;
+    min-height: 50vh;
+    background: rgba(78, 0, 255, 0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.2), rgba(27,29,44,0.2)); 
+}
+
+.zula .stnArtworkColTutorial:hover {
+    background: rgba(0,255,127,0.0);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0), rgba(27,29,44,0.0)); 
+}
+
+
+/*
+======================================================================================================================
+Section 1: Intro +h1/h2 + CTA
+======================================================================================================================
+*/
+
+.stnHeader {
+    position: relative!important;
+    height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+}
+    @media (max-width: 767px) {
+        .stnHeader {
+            height: calc(100vh - 40px);
+        }
+    }
+
+.hero-row {
+    background-image: linear-gradient(90deg,#a00c1f 40%,#21478b);
+    position: relative;
+}
+
+.hero-left {
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+    @media (max-width: 767px) {
+        .hero-left {
+            position: absolute;
+            z-index: 6;
+            height: 100vh;
+            flex-flow: column nowrap;
+        }
+    }
+
+.hero-right {
+    justify-content: flex-end;
+}
+    @media (max-width: 767px) {
+            .hero-right {
+            position: absolute;
+            z-index: 2;
+            height: 100vh;
+            flex-flow: column nowrap;
+        }
+    }
+
+.hero-text {
+    max-width: 58.333333vw; /*para IE*/
+    padding: 15% 40% 15% 10%;
+}
+    @media (max-width: 767px) {
+        .hero-text {
+            max-width: 100vw; /*para IE*/
+            padding: 25% 5% 10%;
+        }
+    }
+
+
+.bg1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover !important;
+    background: url(../img/texture2.png) top no-repeat;
+    background-size: auto auto;
+    opacity: .8;
+
+}
+
+    @media (max-width: 767px) {
+       .bg1{
+            height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+        }
+    }
+
+
+.sliders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: top;
+    transform: rotate(-15deg);
+    transition: none;
+}
+    @media (max-width: 767px) {
+        .sliders {
+            transform: rotate(-8deg);
+        }
+    }
+
+.stnHeader .top,
+.stnHeader .bottom {
+    position: absolute;
+    width: 150%;
+    height: 120vh;
+    background-image: url("../img/textures/concrete_seamless.png");
+    background-repeat: repeat;
+}
+
+.top {
+    top: -70vh;
+    left: -50%;
+}
+    @media (max-width: 767px) {
+        .stnHeader .top {
+            top: -55vh;
+        }
+    }
+
+.bottom {
+    bottom: -110vh;
+    right: 0;
+}
+    @media (max-width: 767px) {
+        .stnHeader .bottom {
+            display: none;
+        }
+    }
+
+.pj2 {
+    max-width: 30em;
+    width: 80%;
+    height: 85%;
+    position: absolute;
+    bottom: 0;
+    right: 46%;
+    background: url(../img/awaken.png) center bottom no-repeat;
+    background-size: contain;
+}
+
+.pj2.active {
+    transform: translate3d(0,0,0);
+}
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .pj2 {
+            width: 60%;
+            height: 70%;
+            right: 30%;
+        }
+    }
+    @media (max-width: 767px) {
+        .pj2 {
+            display: none;
+        }
+    }
+
+.texture2 {
+    background: url(../img/textures/texture1.png) top no-repeat;
+    opacity: .35;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover !important;
+}
+
+.btn-cta {
+    font-family: 'bebas_kairegular', sans-serif;
+    text-transform: uppercase;
+    font-size: 2.6rem;
+    padding: 2.6% 10%;
+    border: 10px solid black;
+    color: black;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  background: black;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+
+.stnHeader .btn-cta {
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+.btn-cta:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #00ff7f;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.btn-cta-small {
+    display: none;
+    padding: 17px 30px;
+    font-size: 1.5em;
+    line-height: 0.1em;
+    border: 5px solid black;
+    left: 10%;
+}
+
+.nav-custom-after a.btn-cta-small {
+    color: black!important;
+}
+.nav-custom-after a:hover.btn-cta-small {
+    color: #00ff7f!important;
+}
+
+/*.btn-cta-sticky {
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    height: 0px;
+    padding: 26px 30px 26px;
+    font-size: 2em;
+    line-height: 0.1em;
+    border: 5px solid black;
+    z-index: 1040;
+    transition: top 2s;
+}*/
+
+.btn-cta:hover, .btn-cta:focus, .btn-cta:active {
+  color: #00ff7f;
+}
+
+.btn-cta:hover:before, .btn-cta:focus:before, .btn-cta:active:before {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.hero-img {
+    object-fit: cover;
+    height: 100vh;
+    align-self:flex-end;
+}
+    @media (min-width: 1100px) and (max-width: 1199px) {
+        .hero-img {
+            position: absolute;
+            height: 90vh;
+            right: -10vh;
+            
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1099px) {
+        .hero-img {
+            position: relative;
+            height: unset;
+            width: 80vw;
+            
+        }
+    }
+
+    @media (max-width: 767px) {
+        .hero-img {
+            height: 45vh;
+        }
+    }/*sm */
+
+#lottie{
+    background-color:transparent;
+    width:50px;
+    height:50px;
+    display:block;
+    overflow: hidden;
+    transform: translate3d(0,0,0);
+    text-align: center;
+    opacity: 1;
+}
+
+    @media (max-width: 767px) {
+        #lottie {
+            width:30px;
+            height:30px;
+        }
+    }
+
+#lottie svg path {
+    stroke: rgb(0,255,126);   
+}
+
+.lottie-container {
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    bottom: 15px;
+    left: 0;
+    display: flex;
+    align-self: center;
+}
+
+/*
+======================================================================================================================
+Section 2: Ficha juego + Texto + Video
+======================================================================================================================
+*/
+
+.stnIntroduction {
+    position: relative;
+    min-height: 220vh;
+    overflow: hidden;
+}
+
+.svgResponsive {
+    height: 99px;
+    width: 99px;
+}
+    @media (max-width: 767px) {
+       .svgResponsive {
+            height: 70px;
+            width: 70px;
+        } 
+    }
+
+/*.btnSquare {
+    flex-basis: 130px;
+    flex-wrap: nowrap;
+    margin: 1em;
+    padding: 15px 0 0;
+    text-align: center;
+    text-decoration: none;
+    border: 10px solid #00ff7f;
+}
+
+.btnSquare i, .btnSquare p {
+    color: black;
+    margin: 0;
+}
+
+.btnSquare:hover {
+    background-color: #14191E;
+    text-decoration: none;
+}
+
+.btnSquare:hover p, .btnSquare:hover i {
+    color: #00ff7f;
+}*/
+
+.btnSquare {
+    flex-basis: 130px;
+    min-height: 130px;
+    flex-wrap: nowrap;
+    margin: 0.9em;
+    text-align: center;
+    text-decoration: none;
+    border: 0px solid #00ff7f;
+    -webkit-transform: perspective(1px) translateZ(0);
+    -moz-transform: perspective(1px) translateZ(0);
+    -ms-transform: perspective(1px) translateZ(0); 
+    -o-transform:perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+}
+    @media (max-width: 767px) {
+        .btnSquare {
+            flex-basis: 100px;
+            min-height: 100px;
+            margin: 0.5em;
+        }
+    }
+
+.btnSquare i {
+    padding-top: 25px;
+}
+    @media (max-width: 767px) {
+        .btnSquare i {
+            padding-top: 20px;
+        }
+    }
+
+.btnSquare p {
+    padding: 10px;
+    font-weight: 500;
+}
+        @media (max-width: 767px) {
+        .btnSquare p {
+            font-size: 0.8em;
+            padding: 5px;
+        }
+    }
+
+.btnSquare i, .btnSquare p {
+    color: black;
+    margin: 0;
+}
+
+.btnSquare:hover i, .btnSquare:hover p {
+    color: #00ff7f;
+}
+
+.btnSquare:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #00ff7f;
+    color: #14191E;
+    border-color: #00ff7f;
+    border-style: solid;
+    border-width: 0;
+        -webkit-transition-property: border-width, color, background-color;
+        -moz-transition-property: border-width, color, background-color;
+        -ms-transition-property: border-width, color, background-color;
+        -o-transition-property: border-width, color, background-color;
+    transition-property: border-width, color, background-color;
+        -webkit-transition-timing-function: ease-out;
+        -moz-transition-timing-function: ease-out;
+        -ms-transition-timing-function: ease-out;
+        -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+        -webkit-transition-duration: 0.15s;
+        -moz-transition-duration: 0.15s;
+        -ms-transition-duration: 0.15s;
+        -o-transition-duration: 0.15s;
+    transition-duration: 0.15s;
+}
+
+.btnSquare:hover:before, .btnSquare:focus:before, .btnSquare:active:before {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    border-width: 10px;
+    background-color: #14191E;
+    color: #00ff7f;
+    text-decoration: none;
+}
+    @media (max-width: 767px) {
+       .btnSquare:hover:before, .btnSquare:focus:before, .btnSquare:active:before {
+            border-width: 8px;
+        } 
+    }
+
+#idiomasJuego table {
+    max-width: 60%;
+}
+
+#stnIntroductionText .flexChild {
+    flex-basis: 70%;
+}
+    @media (max-width: 767px) {
+        #stnIntroductionText .flexChild {
+            flex-basis: 90%;
+        }
+    }
+
+
+
+.parallax-bg-container .slidersstnIntroduction {
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    transform-origin: top;
+    transform: rotate(10deg);
+    transition: none;
+}
+
+.parallax-bg-container .top,
+.parallax-bg-container .bottom {
+    position: absolute;
+    width: 150%;
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+}
+
+.parallax-bg-container .top {
+    top: -30vh;
+    left: -50%;
+    height: 100vh;
+}
+    @media (max-width: 767px) {
+        .parallax-bg-container .top {
+            top: -20vh;
+            left: -50%;
+            height: 100vh;
+        }
+    }
+
+.parallax-bg-container .bottom {
+    top: 120vh;
+    right: 0;
+    height: 150vh;
+}
+    @media (max-width: 767px) {
+        .parallax-bg-container .bottom {
+            height: 220vh;
+            top: 160vh;
+            right: -40%;
+            bottom: 0;
+        }
+    }
+
+.parallax-bg-container .pj3 {
+    position: absolute;
+    top: -35%;
+    left: 5%;
+    max-width: 967px;
+    width: 100%;
+    height: 100%;
+    background: url(../img/pj3-champions-of-titan.png) center bottom no-repeat;
+    background-size: auto auto;
+    background-size: contain;
+    z-index: 1;
+}
+        @media (max-width: 767px) {
+        .parallax-bg-container .pj3 {
+            top: -22%;
+            left: 0;
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+.parallax-bg-container .pj3.active {
+    perspective: 1px;
+    transform-style: preserve-3d;
+    opacity: 1;
+    transform: translateZ(.25px) scale(.75) translateX(-60%) translateY(-20%) rotate(1deg);
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 1s;
+}
+
+.bg2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover !important;
+    background: url(../img/bg2.jpg) center no-repeat;
+    background-size: auto auto;
+    background-attachment: fixed;
+    opacity: .8;
+    z-index: -2
+}
+
+.stnIntroductionContainerBottom {
+    position: relative;
+}
+
+#stnIntroductionText {
+    position: relative;
+    z-index: 1;
+    margin-top: 25%;
+}
+
+#stnIntroductionVideo {
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 992px) {
+
+    #stnIntroductionVideo {
+    margin-top: -50px;
+    }
+
+    #stnIntroductionVideo .embed-responsive {
+    width: 40vw;
+    }
+}
+
+.stnIntroductionContainerBottom .lineaVertical {
+    position: absolute;
+    top: 15%;
+    left: 6em;
+    width: 1px;
+    height: 1px;
+    -webkit-transition: height 2s; /* For Safari 3.1 to 6.0 */
+    transition: height 2s;
+    z-index: 0;
+}
+
+.stnIntroductionContainerBottom .lineaVertical.active {
+    height: 100%;
+}
+
+/*
+======================================================================================================================
+Section 3: Noticias
+======================================================================================================================
+*/
+
+.stnNoticias {
+    position: relative;
+}
+
+.stnNoticiasTitle {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 3;
+}
+        @media (max-width: 767px) {
+            .stnNoticiasTitle {
+                justify-content: flex-end;
+            }
+
+            .stnNoticiasTitle h3 {
+                position: absolute;
+                top: 50px;
+                right: -20px;
+                font-size: 2em;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .stnNoticiasTitle {
+                justify-content: flex-end;
+            }
+
+            .stnNoticiasTitle h3 {
+                position: absolute;
+                top: 100px;
+                right: -20px;
+                font-size: 3em;
+            }
+        }
+
+.vertical {
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Safari */
+    transform: rotate(-90deg);
+}
+
+.lastNew {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 40vh;
+    position: relative;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(to right, rgba(0,255,127,0.1), rgba(0,255,127,0.3)); 
+}
+
+.lastNew::after {
+    content: "";
+    min-height: 40vh;
+    background-size: cover !important;
+    background: url(../img/bg2.jpg) center no-repeat;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.lastNewText {
+    flex-basis: 60%;
+}
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .lastNewText {
+            flex-basis: 55%;
+            } 
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+       .lastNewText {
+            flex-basis: 50%;
+            } 
+    }
+
+    @media (max-width: 767px) {
+        .lastNewText {
+            flex-basis: 100%;
+            } 
+    }
+
+.lastNewText h4::first-line {
+    font-size: 2em;
+}
+    @media (max-width: 767px) {
+        .lastNewText h4::first-line {
+            font-size: 1.6em;
+            line-height: 1.1em;
+        }
+    }
+
+.btnSquare2 {
+    position: absolute;
+    bottom: -5em;
+    right: 5em;
+    z-index: 3;
+}
+    @media (max-width: 767px) {
+       .btnSquare2 {
+            position: relative;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            } 
+    }
+
+.btnSquare2inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 300px;
+        -webkit-transition-duration: 0.3s;
+        -moz-transition-duration: 0.3s;
+        -ms-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+        -webkit-transition-property: background-color;
+        -moz-transition-property: background-color;
+        -ms-transition-property: background-color;
+        -o-transition-property: background-color;
+    transition-property: background-color;
+}
+    @media (max-width: 767px) {
+       .btnSquare2inner {
+            display: flex;
+            align-items: center;
+            height: 200px;
+            width: 100vw;
+        } 
+    }
+
+.btnSquare2inner:hover, .btnSquare2inner:focus, .btnSquare2inner:active {
+  background-color: #66ffb2;
+}
+
+.btnSquare a {
+    text-align: center;
+    text-decoration: none;
+}
+
+.btnSquare2 p {
+    font-size: 80px;
+    line-height: 0.9em;
+    text-align: center;
+}
+
+.btnSquare2 p::first-line {
+    font-size: 48px;
+    text-align: center;
+}
+
+
+
+
+/*
+======================================================================================================================
+Section 4: Análisis y reseñas
+======================================================================================================================
+*/
+.stnAnalisis {
+    position: relative;
+}
+
+.stnAnalisis-Slider {
+    flex-basis: 70%;
+    flex-direction: column;
+}
+
+.stnAnalisis .btnPrev {
+    order: 1;
+    align-self: flex-start;
+    text-align: left;
+}
+    @media (max-width: 992px) {
+       .stnAnalisis .btnPrev {
+            flex-basis: 50%;
+            order: 2;
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+
+.stnAnalisis-SliderText{
+    order: 2;
+    align-self: center;
+    max-width: 70vw; /*IE*/
+}
+    @media (max-width: 992px) {
+       .stnAnalisis-SliderText {
+            order: 1;
+            margin-bottom: 50px;
+            max-width: 100vw;
+        }
+    }
+
+.stnAnalisis .btnNext {
+    order: 3;
+    align-self: flex-end;
+    text-align: right;
+}
+    @media (max-width: 992px) {
+       .stnAnalisis .btnNext {
+            flex-basis: 50%;
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+
+.stnAnalisis-Title {
+    position: relative;
+    justify-content: center;
+    align-content: center;
+}
+
+.stnAnalisis-Title h3 {
+    text-align: right;
+    align-self: center;
+}
+    @media (max-width: 992px) {
+       .stnAnalisis-Title h3 {
+            text-align: left;
+            padding-top: 70px;
+        }
+    }
+
+.stnAnalisis-Title h3::first-line {
+    font-size: 7rem;
+    line-height: 1em;
+    color: white;
+}
+
+.stnAnalisis-Container .lineaVertical {
+    align-self: center;
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    -webkit-transition: height 2s; /* For Safari 3.1 to 6.0 */
+    transition: height 2s;
+    z-index: 2;
+}
+
+.stnAnalisis-Container .lineaVertical.active {
+    height: 30%;
+}
+
+.stnAnalisis-Container .lineaHorizontalAncha {
+    align-self: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    z-index: 2;
+}
+
+.stnAnalisis-Container .lineaHorizontalAncha.active {
+    width: 70%;
+}
+
+/*
+======================================================================================================================
+Section 5: Patchnotes +Guías +Tutoriales
+======================================================================================================================
+*/
+.stnGuiasTitle .lineaHorizontalAncha {
+    align-self: flex-start;
+    position: absolute;
+    width: 0;
+    z-index: 2;
+}
+
+.stnGuiasTitle .lineaHorizontalAncha.active {
+    width: 15%;
+}
+
+.stnGuiasColPatchnotes {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 50vh;
+    text-align: center;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.3), rgba(27,29,44,0.6)); 
+/*    background-image: linear-gradient(45deg, rgba(0,255,127,0.2)10%,rgba(27,29,44,0.2)60%, rgba(27,29,44,0.2)80%, rgba(210,109,53,0.2)100%);*/
+}
+
+.stnGuiasColPatchnotes:hover {
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.1), rgba(27,29,44,0.4)); 
+    text-decoration: none;
+}
+
+.stnGuiasColPatchnotes::after {
+    content: "";
+    min-height: 50vh;
+    background-size: cover !important;
+    background: url(../img/bg-patchnotes.jpg) center no-repeat;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.stnGuiasColPatchnotes:hover::after{
+    opacity: 0.5;
+}
+
+.stnGuiasColPatchnotes h4::first-line {
+    font-size: 2em;
+    line-height: 0.9em;
+}
+
+.stnGuiasColGuias {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 30vh;
+    position: relative;
+    background: rgba(0,255,127,0.7);
+}
+
+.stnGuiasColGuias:hover {
+    background: rgba(0,255,127,0.5);
+    text-decoration: none;
+}
+
+.stnGuiasColGuias::after {
+    content: "";
+    background-size: cover !important;
+    background: url(../img/champions-of-titan-bg-sm-1.jpg) center no-repeat;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.stnGuiasColGuias p {
+    color: black;
+}
+
+.stnGuiasColImg {
+    height: calc(20vh - 30px);
+}
+
+.stnGuiasColImg img{
+    width: 100%;
+    height: calc(20vh - 30px);
+    object-fit: cover;
+}
+
+.stnGuiasColEmpty {
+    min-height: calc(20vh - 30px);
+}
+
+.stnGuiasColTutorial {
+    position: relative;
+    min-height: 50vh;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.2), rgba(27,29,44,0.2)); 
+}
+
+.stnGuiasColTutorial:hover {
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.1), rgba(27,29,44,0.1)); 
+    text-decoration: none;
+}
+
+.stnGuiasColTutorial:hover::after {
+    opacity: 1;
+}
+
+.stnGuiasColTutorial::after {
+    content: "";
+    background-size: cover !important;
+    background: url(../img/champions-of-titan-bg-md-1.jpg) center no-repeat;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;  
+}
+
+/*
+======================================================================================================================
+Section 6: RRSS
+======================================================================================================================
+*/
+.stnRrssContainer {
+    position: relative;
+}
+
+.stnRrssContainer .lineaHorizontalAncha {
+    align-self: flex-end;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 0;
+    z-index: 2;
+}
+
+.stnRrssContainer .lineaHorizontalAncha.active {
+    width: 70%;
+}
+    @media (max-width: 991px) {
+        .stnRrssContainer .lineaHorizontalAncha.active {
+            width: 30%;
+        }
+    }
+
+.stnRrssTitle {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+}
+    @media (max-width: 991px) {
+        .stnRrssTitle {
+            width: 70%;
+        }
+    }
+
+.rrssIcons {
+    flex-wrap: wrap;
+}
+
+.rrssIcons a {
+    font-size: 3em;
+}
+    @media (max-width: 1344px) {
+       .rrssIcons a {
+            font-size: 1.6em;
+        } 
+    }
+
+.rrssIcons i:hover {
+    color: #66ffb2;
+}
+
+/*
+======================================================================================================================
+Section 7: Foros,soporte,discusiones
+======================================================================================================================
+*/
+/*.stnForosContainer {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.prllcnt {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: calc(100vw + 15px);
+}
+
+.stnForosContainer .top {
+    position: absolute;
+    width: 150%;
+    height: 50vh;
+    top: -25vh;
+    left: 0;
+    transform-origin: top;
+    transform: rotate(10deg);
+    transition: none;
+    z-index: 2;
+}
+
+.stnForosContainer .bottom {
+    position: absolute;
+    bottom: -85vh;
+    right: -20%;
+    transform-origin: top;
+    transform: rotate(10deg) translateZ(0);
+    transition: none;
+}
+
+.bgStnForos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: -2;
+    transform: translateZ(-1px) scale(2);
+    background-size: cover !important;
+    background: url(../img/bg3.jpg) top no-repeat;
+    background-attachment: fixed;
+    opacity: 0.8;
+}*/
+
+.stnForosContainer {
+    position: relative;
+    overflow: hidden;
+    min-height: 140vh;
+
+}
+
+.stnForosContainer .top {
+    position: absolute;
+    width: 150%;
+    height: 50vh;
+    top: -25vh;
+    left: 0;
+    transform-origin: top;
+    transform: rotate(10deg);
+    transition: none;
+    z-index: 2;
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+}
+
+.bgStnForos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: -2;
+    opacity: 1;
+}
+
+.bgStnForos::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    background-size: cover !important;
+    background: url(../img/bg3.jpg) top no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5;
+    z-index: -6;
+}
+
+.stnForosContainer .bottom {
+    position: absolute;
+    width: 150%;
+    height: 80vh;
+    bottom: -60vh;
+    right: -20%;
+    transform-origin: top;
+    transform: rotate(10deg);
+    transition: none;
+    background-image: url("../img/textures/noisy_net.png");
+    background-repeat: repeat;
+}
+
+.stnForosTxtContainer {
+    position: relative;
+}
+
+.stnForosContainer.stnForosContainer .lineaVertical {
+    align-self: center;
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    -webkit-transition: height 2s; /* For Safari 3.1 to 6.0 */
+    transition: height 2s;
+    z-index: 2;
+}
+
+.stnForosContainer .lineaVertical.active {
+    height: 100%;
+}
+
+.stnForosContainer .lineaHorizontalAncha {
+    align-self: flex-end;
+    width: 0;
+    z-index: 6;
+}
+
+.stnForosTxtContainer h4 {
+    line-height: 1em;
+}
+
+.stnForosContainer .first .lineaHorizontalAncha.active {
+    width: 250px;
+}
+    @media (max-width: 767px) {
+        .stnForosContainer .first .lineaHorizontalAncha.active {
+            width: 45vw;
+        }
+    }
+
+.stnForosTxtContainer.first {
+    margin-top: 150px;
+}
+    @media (max-width: 767px) {
+        .stnForosContainer .first {
+            margin-top: 50px;
+        }
+    }
+
+.stnForosContainer .middle .lineaHorizontalAncha.active {
+    width: 270px;
+}
+    @media (max-width: 767px) {
+        .stnForosContainer .middle .lineaHorizontalAncha.active {
+            width: 45vw;
+        }
+    }
+
+.stnForosTxtContainer.middle h4{
+    font-size: 6em;
+}
+    @media (max-width: 767px) {
+        .stnForosTxtContainer.middle h4 {
+            font-size: 3.2rem;
+        }
+    } 
+
+.stnForosContainer .last .lineaHorizontalAncha.active {
+    width: 320px;
+}
+    @media (max-width: 767px) {
+        .stnForosContainer .last .lineaHorizontalAncha.active {
+            width: 45vw;
+        }
+    }
+
+.stnForosTxtContainer.last h4{
+    font-size: 5em;
+}
+    @media (max-width: 767px) {
+        .stnForosTxtContainer.last h4 {
+            font-size: 2.5rem;
+        }
+    } 
+
+/*
+======================================================================================================================
+Section 8: Artwork + Video + Capturas
+======================================================================================================================
+*/
+.stnArtworkCol1 {
+    order: 1;
+}
+    @media (max-width: 767px) {
+        .stnArtworkCol1 {
+            order: 2;
+        }
+    } 
+
+.stnArtworkCol2 {
+    order: 2;
+}
+    @media (max-width: 767px) {
+        .stnArtworkCol2 {
+            order: 1;
+        }
+    } 
+
+.stnArtworkColVideo {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    text-align: center;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.3), rgba(27,29,44,0.6)); 
+}
+
+.stnArtworkColVideo:hover {
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.1), rgba(27,29,44,0.1)); 
+    text-decoration: none;
+}
+
+.stnArtworkColVideo::after {
+    content: "";
+    min-height: 50vh;
+    background-size: cover !important;
+    background: url(../img/champions-of-titan-bg-md-2.jpg) center no-repeat;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.stnArtworkColArtwork {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 50vh;
+    text-align: center;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.1), rgba(27,29,44,0.1)); 
+}
+
+.stnArtworkColArtwork:hover {
+    background: rgba(0,255,127,0);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0), rgba(27,29,44,0)); 
+    text-decoration: none;
+}
+
+.stnArtworkColArtwork::after {
+    content: "";
+    min-height: 50vh;
+    background-size: cover !important;
+    background: url(../img/bg-patchnotes.jpg) center no-repeat;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.stnArtworkColGuias {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 30vh;
+    position: relative;
+    background: rgba(0,255,127,0.7);
+}
+
+.stnArtworkColGuias:hover {
+    background: rgba(0,255,127,0.5);
+    text-decoration: none;
+}
+
+.stnArtworkColGuias::after {
+    content: "";
+    background-size: cover !important;
+    background: url(../img/champions-of-titan-bg-sm-1.jpg) center no-repeat;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.stnArtworkColGuias p {
+    color: black;
+}
+
+.stnArtworkColImg {
+    height: calc(20vh - 30px);
+}
+
+.stnArtworkColImg img{
+    width: 100%;
+    height: calc(20vh - 30px);
+    object-fit: cover;
+}
+
+.stnArtworkColEmpty {
+    min-height: calc(20vh - 30px);
+}
+
+.stnArtworkColTutorial {
+    position: relative;
+    min-height: 50vh;
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.2), rgba(27,29,44,0.2)); 
+}
+
+.stnArtworkColTutorial:hover {
+    background: rgba(0,255,127,0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.1), rgba(27,29,44,0.1)); 
+    text-decoration: none;
+}
+
+.stnArtworkColTutorial:hover::after {
+    opacity: 1;
+}
+
+.stnArtworkColTutorial::after {
+    content: "";
+    background-size: cover !important;
+    background: url(../img/champions-of-titan-bg-md-1.jpg) center no-repeat;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;  
+}
+
+.stnArtwork .lineaHorizontalAncha {
+    align-self: flex-end;
+    width: 0;
+    z-index: 2;
+}
+
+.stnArtwork .lineaHorizontalAncha.active {
+    width: 50%;
+}
+    @media (max-width: 991px) {
+        .stnArtwork .lineaHorizontalAncha.active {
+            width: 90%;
+        }
+    }
+
+
+/*
+======================================================================================================================
+LIST 
+======================================================================================================================
+*/
+ul {
+    list-style: none;
+}
+
+
+
+/*
+======================================================================================================================
+CSS MEDIA QUERIES: XL
+======================================================================================================================
+*/
+
+@media (min-width: 1200px) {
+
+
+}/* End media-query xl */
+
+/*
+======================================================================================================================
+CSS MEDIA QUERIES: LG
+======================================================================================================================
+*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}/* End media-query lg */
+
+
+/*
+======================================================================================================================
+CSS MEDIA QUERIES: MD
+======================================================================================================================
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+}/* End media-query md */
+
+
+/*
+======================================================================================================================
+CSS MEDIA QUERIES: SM
+======================================================================================================================
+*/
+@media (min-width: 576px) and (max-width: 767px) {
+/* End media-query sm */
+
+}
+/*
+======================================================================================================================
+CSS MEDIA QUERIES: XS
+======================================================================================================================
+*/
+@media (max-width: 575px) {
+
+}/* End media-query xs */
+
+
+/*
+======================================================================================================================
+REGISTER/LOGIN CSS IDC GAMES
+======================================================================================================================
+*/
+
+
+.bgRegister {
+    background-image: url("../img/login/idc-games-background.jpg");
+    background-repeat: no-repeat;
+}
+
+.alredyRegistered {
+    position: absolute;
+    top: 15px;
+}
+
+.noYetRegistered .lineaHorizontalEstrecha {
+    width: 45%;
+    float: right;
+}
+
+.alredyRegistered .lineaHorizontalEstrecha {
+    width: 40%;
+    float: right;
+}
+
+.modalMainContentContainer {
+    position: relative;
+    max-width: 100%;
+}
+
+.formularyAccount .lineaHorizontalAncha {
+    max-width: 60%;
+}
+
+.btn-google {
+    height: 46px;
+    width: 191px;
+    background-image: url("../img/login/btn_google_signin_light_normal_web.png");
+    background-repeat: no-repeat;
+}
+
+.btn-google:hover {
+    background-image: url("../img/login/btn_google_signin_light_focus_web.png");
+}
+
+.btn-google:active {
+    background-image: url("../img/login/btn_google_signin_light_pressed_web.png");
+}
+
+.btn-google:disabled {
+    background-image: url("../img/login/btn_google_signin_light_disabled_web.png");
+}
+
+.btn-facebook {
+    height: 40px;
+    width: 248px;
+    background-image: url("../img/login/fb.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.btn-others {
+    height: 40px;
+    width: 185px;
+    border-radius: 2px;
+}
+
+.btn-social {
+    max-height: 46px;
+    padding: 10px;
+    text-align: left;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.btn-social:focus {
+ outline:0;
+ box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+}
+
+.btn-msn {
+    color: #fff;
+    background-color: #3f729b;
+    max-height: 41px;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-msn img {
+    max-height: 22px;
+}
+
+.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-yahoo {
+    color: #fff;
+    background-color: #720e9e;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-steam {
+    color: #fff;
+    background-color: #77A934;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.loginModal .btn-cta {
+    font-size: 2rem;
+    padding: 2% 15%;
+}
+
+.modal-content {
+    border: none;
+    box-shadow: 1px 3px 9px 3px rgba(0,0,0,0.8);
+}
+
+.loginModal .modal-lg {
+    max-width: 830px;
+}
+
+.modal-backdrop {
+ position:fixed;
+ top:0;
+ right:0;
+ bottom:0;
+ left:0;
+ z-index:1040;
+ background-color:#12C060;
+ mix-blend-mode: multiply;
+}
+
+.modal-backdrop.fade {
+ opacity:0;
+}
+.modal-backdrop.show {
+ opacity:.9;
+}
+
+/*[data-aos] {
+  visibility: hidden;
+}
+[data-aos].animated {
+  visibility: visible;
+}
+
+[data-aos="new-animation"] {
+  opacity: 0;
+  transition-property: transform, opacity;
+
+  &.aos-animate {
+    opacity: 1;
+  }
+
+}*/
+
+/*[data-aos="example-anim3"] {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+  opacity: 0;
+  transition-property: opacity, -webkit-transform;
+  transition-property: transform, opacity;
+  transition-property: transform, opacity, -webkit-transform;
+}
+[data-aos="example-anim3"].aos-animate {
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+  opacity: 1;
+}*/
+
+
+
+
+/*
+======================================================================================================================
+default
+======================================================================================================================
+*/
+
+/*nuevas rutas de img*/
+
+.default .bg1{
+    background: url(../img/default/bg-1.jpg) top no-repeat;
+    opacity: .7;
+}
+
+.default .pj2 {
+    max-width: 100em;
+    width: 65%;
+    right: 20%;
+    background: url(../img/default/pj-2.png) center bottom no-repeat;
+    background-size: contain;
+}
+
+.default .bg2{
+    background: url(../img/default/bg-1.jpg) center no-repeat;
+    background-attachment: fixed;
+}
+
+.default .parallax-bg-container .pj3 {
+    position: absolute;
+    top: -32%;
+    left: 1%;
+    max-width: 967px;
+    width: 100%;
+    height: 100%;
+    background: url(../img/zula/pj3.png) center bottom no-repeat;
+    background-size: auto auto;
+    background-size: contain;
+    z-index: 1;
+    transform: rotate(-10deg);
+}
+        @media (max-width: 767px) {
+        .parallax-bg-container .pj3 {
+            top: -22%;
+            left: 0;
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+.parallax-bg-container .pj3.active {
+    perspective: 1px;
+    transform-style: preserve-3d;
+    opacity: 1;
+    transform: translateZ(.25px) scale(.75) translateX(-60%) translateY(-20%) rotate(1deg);
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 1s;
+}
+
+.default .lastNew::after {
+    background: url(../img/default/bg-1.jpg) center no-repeat;
+}
+
+.default .stnGuiasColPatchnotes::after {
+    background: url(../img/default/patchnotes.jpg) center no-repeat;
+    opacity: 0.8;
+}
+
+.default .stnGuiasColGuias::after {
+    background: url(../img/zula/zula-bg-sm-1.jpg) center no-repeat;
+    opacity: 0.8;
+}
+
+.default .bgStnForos::after {
+    background: url(../img/default/bg-1.jpg) top no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5;
+}
+
+.default .stnArtworkColArtwork::after {
+    background: url(../img/default/bg-artwork.jpg) center no-repeat;
+    opacity: 1;
+}
+
+.default .stnArtworkColGuias::after {
+    background: url(../img/default/365x295.jpg) center no-repeat;
+}
+
+.default .stnArtworkColVideo {
+    background: rgba(78, 0, 255, 0.1);
+    background-image: linear-gradient(45deg, rgba(0,255,127,0.3), rgba(27,29,44,0.6)); 
+}
+
+.default .stnArtworkColVideo::after {
+    background: url(../img/zula/zula-bg-md-2.jpg) center no-repeat;
+    opacity: 0.9;  
+}
+
+.default .stnArtworkColTutorial::after {
+    background: url(../img/default/bg-artwork2.jpg) left no-repeat;
+    opacity: 0.9;
+}
+
+.default .stnArtworkColTutorial {
+    position: relative;
+    min-height: 50vh;
+    background: rgba(78, 0, 255, 0.1);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0.2), rgba(27,29,44,0.2)); 
+}
+
+.default .stnArtworkColTutorial:hover {
+    background: rgba(0,255,127,0.0);
+    background-image: linear-gradient(45deg, rgba(52,50,74,0), rgba(27,29,44,0.0)); 
+}

@@ -1,0 +1,38 @@
+body {
+  overflow-x: hidden; }
+
+#ScrollTop {
+  background-color: transparent;
+  display: none;
+  position: fixed;
+  z-index: 1030;
+  bottom: 20px;
+  right: 20px;
+  width: 70px; }
+  #ScrollTop svg path {
+    fill: #00ff7e; }
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sticky-top-custom {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+    z-index: 1020; } }
+
+.active-link-lateral-menu .active a {
+  color: #66ffb2; }
+
+.active-link-lateral-menu .active {
+  background: rgba(0, 255, 126, 0.1);
+  -webkit-transition: .2s ease;
+  transition: .2s ease; }
+  .active-link-lateral-menu .active:hover {
+    background: rgba(0, 255, 126, 0.2);
+    -webkit-transition: .2s ease;
+    transition: .2s ease; }
+
+.guide-parent li {
+  cursor: pointer; }
+
+.scroll-spy-target {
+  height: 100%; }

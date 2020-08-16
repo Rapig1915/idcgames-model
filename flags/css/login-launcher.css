@@ -1,0 +1,63 @@
+/*Just for launcher*/
+html[data-useragent*='idclauncher'] .nolauncher{
+	display:none!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-container {
+	padding-top: 0rem!important;
+    padding-bottom: 0rem!important;
+    margin-top: 0!important;
+    height: 90vh;
+    justify-content: flex-start!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-mb-5 {
+	margin-bottom: 3rem!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-mb-0 {
+	margin-bottom: 0!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-mr-0 {
+	margin-right: 0rem!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-d-flex {
+	display: flex!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-flex-row {
+	flex-direction: row!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-flex-column {
+	flex-direction: column!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-col-1 {
+	display: flex;
+    flex-direction: column;
+    flex-basis: 60vw;
+    justify-content: flex-end;
+}
+
+html[data-useragent*='idclauncher'] .launcher-col-2 {
+	flex-basis: 40vw;
+    margin-left: 3rem;
+    border-left: 1px solid springgreen;
+    padding-left: 2rem!important;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+html[data-useragent*='idclauncher'] .launcher-justify-end {
+	justify-content: flex-end!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-col-3-bottom {
+	position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100vw;
+}

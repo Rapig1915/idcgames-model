@@ -1,0 +1,546 @@
+/*
+======================================================================================================================
+Sidebar-nav -- MenÃº lateral de navegaciÃ³n en IDC
+======================================================================================================================
+*/
+.sidenav {
+    height: calc(100vh - 60px); 
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; 
+    z-index: 1020; 
+    top: 60px; 
+    left: -1px;
+    overflow-x: hidden; 
+    overflow-y: auto;
+    flex-wrap: nowrap;
+    margin-left: 0;
+    padding-left: 0;    
+    transition: 0.5s; 
+}
+
+ .sidenav.sidenav-after {
+    height: calc(100vh - 44px); 
+    top: 44px ;    
+    transition: 0.3s;
+}
+
+.sidenav .collapse li:hover {
+    background-color: rgba(0,255,126,.1);
+    transition: 0.3s;
+}
+
+#language-collapse a {
+    background-color: rgba(0,255,126,0);
+    transition: 0.3s;
+}
+
+#language-collapse a:hover {
+    background-color: rgba(0,255,126,.1);
+    transition: 0.3s;
+}
+
+.sidenav .collapse a {
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .collapse a:hover {
+    color: #66ffb2;
+}
+
+#categoriesBtn .lottie {
+    width: 30px;
+    height: 30px;
+    z-index: 1040;
+    cursor: pointer;
+}
+.nav-custom-after #categoriesBtn .lottie svg path {
+    stroke: rgb(0,255,126); 
+}
+
+.sidenav-closed {
+    width: 0;
+}
+
+.sidenav-opened {
+    width: 320px;
+}
+
+@media (max-width: 575.98px) {
+    .sidenav-opened {
+        width: 100vw;
+    }
+}
+
+.bg-gradient {
+    background-image: linear-gradient(45deg, rgba(0, 255, 127, 1) 1%, rgba(49, 73, 84, 1) 50%, rgba(27, 29, 44, 1) 100%);
+    transition: all ease-out .4s;
+}
+/*
+======================================================================================================================
+Menu especi­fico del juego Top
+======================================================================================================================
+*/
+.navbar li {
+    list-style: none;
+}
+
+.navbar-brand {
+    background-image: url("==(logoidc_dark)==");
+    height: 50px;
+    width: 44px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.nav-custom-after .navbar-brand {
+    background-image: url("==(logoidc_white)==");
+    height: 40px;
+}
+
+.nav-custom {
+    background-color: transparent;
+    border-bottom: 1px solid #ffffff;
+    transition: all 1s ease;
+    padding: .3rem 1rem;
+}
+
+.nav-custom a {
+    color: black;
+}
+
+.nav-custom-after {
+    padding: 0rem 1rem;
+    border-bottom: 1px solid #00ff7f;
+}
+
+.nav-custom-after a {
+    color: #fff !important;
+    transition: all 1s ease;
+}
+
+.nav-custom .dropdown-item, .nav-custom .dropdown-menu a{
+    color: #fff;
+}
+
+.nav-custom .logged  a {
+    color: #314954;
+}
+
+.nav-custom-after .logged a {
+    color: #00ff7f!important;
+}
+
+@media (min-width: 576px) and (max-width: 767.98px){
+    #navbarNav .fontSecondarySmall {
+        font-size: 1.05rem;
+    }
+    #navbarNav ul {
+        flex-wrap: nowrap;
+    }
+    #navbarNav .nav-link {
+        padding: 0.5rem 0.55rem;
+    }
+    #navbarNav .menu-reduced {
+        display: none;
+    }
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+/*Menu lateral*/
+.featured {
+    background: rgba(0,255,126,.2);
+}
+
+.btn-cta-small {
+    display: none;
+    white-space: nowrap;
+    padding: 17px 30px;
+    font-size: 1.5em;
+    line-height: 0.1em;
+    border: 5px solid black;
+    left: 10%;
+    cursor: pointer;
+}
+
+@media (max-width: 767.98px) {
+.btn-cta-small {
+    padding: 17px 15px;}
+ }
+
+.nav-custom-after a.btn-cta-small {
+    color: black!important;
+}
+
+.nav-custom-after a:hover.btn-cta-small {
+    color: #00ff7f!important;
+}
+
+.flag {
+    transform: scale(.5);
+    margin: -20px;
+}
+
+@media (max-width: 575.98px) {
+.flag {
+    transform: scale(.4);
+    margin: -20px;}
+}
+
+.language-menu.dropdown-menu.show {
+    display: flex;
+    flex-direction: row;
+    margin-top: .25rem;
+    width: 90vw;
+    justify-content: flex-end;
+    height: auto;
+    flex-wrap: wrap;
+    box-shadow: none;
+}
+
+.language-menu a {
+    width: 97px;
+}
+
+/*////////////////////////Perfect Scroll bar css
+ * Container style
+ */
+ .ps {
+    overflow: hidden !important;
+    -ms-overflow-style: none;
+    touch-action: auto;
+    -ms-touch-action: auto;
+  }
+  
+  /*
+   * Scrollbar rail styles
+   */
+  .ps__rail-x {
+    display: none;
+    opacity: 0;
+    transition: background-color 0.2s linear, opacity 0.2s linear;
+    -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+    height: 15px;
+    /* there must be 'bottom' or 'top' for ps__rail-x */
+    bottom: 0px;
+    /* please don't change 'position' */
+    position: absolute;
+  }
+  
+  .ps__rail-y {
+    display: none;
+    opacity: 0;
+    transition: background-color 0.2s linear, opacity 0.2s linear;
+    -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+    width: 15px;
+    /* there must be 'right' or 'left' for ps__rail-y */
+    right: 0;
+    /* please don't change 'position' */
+    position: absolute;
+  }
+  
+  .ps--active-x > .ps__rail-x,
+  .ps--active-y > .ps__rail-y {
+    display: block;
+    background-color: transparent;
+  }
+  
+  .ps:hover > .ps__rail-x,
+  .ps:hover > .ps__rail-y,
+  .ps--focus > .ps__rail-x,
+  .ps--focus > .ps__rail-y,
+  .ps--scrolling-x > .ps__rail-x,
+  .ps--scrolling-y > .ps__rail-y {
+    opacity: 0.6;
+  }
+  
+  .ps .ps__rail-x:hover,
+  .ps .ps__rail-y:hover,
+  .ps .ps__rail-x:focus,
+  .ps .ps__rail-y:focus,
+  .ps .ps__rail-x.ps--clicking,
+  .ps .ps__rail-y.ps--clicking {
+    background-color: #343a40;
+    opacity: 0.9;
+  }
+  
+  /*
+   * Scrollbar thumb styles
+   */
+  .ps__thumb-x {
+    background-color: #00ff7f;
+    border-radius: 6px;
+    transition: background-color 0.2s linear, height 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s linear, height 0.2s ease-in-out;
+    height: 6px;
+    /* there must be 'bottom' for ps__thumb-x */
+    bottom: 2px;
+    /* please don't change 'position' */
+    position: absolute;
+  }
+  
+  .ps__thumb-y {
+    background-color: #00ff7f;
+    border-radius: 6px;
+    transition: background-color 0.2s linear, width 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
+    width: 6px;
+    /* there must be 'right' for ps__thumb-y */
+    right: 2px;
+    /* please don't change 'position' */
+    position: absolute;
+  }
+  
+  .ps__rail-x:hover > .ps__thumb-x,
+  .ps__rail-x:focus > .ps__thumb-x,
+  .ps__rail-x.ps--clicking .ps__thumb-x {
+    background-color: #00ff7f;
+    height: 11px;
+  }
+  
+  .ps__rail-y:hover > .ps__thumb-y,
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y.ps--clicking .ps__thumb-y {
+    background-color: #00ff7f;
+    width: 11px;
+  }
+  
+  /* MS supports */
+  @supports (-ms-overflow-style: none) {
+    .ps {
+      overflow: auto !important;
+    }
+  }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .ps {
+      overflow: auto !important;
+    }
+  }
+  
+  /*# sourceMappingURL=main.css.map */
+  
+
+/*
+======================================================================================================================
+REGISTER/LOGIN CSS IDC GAMES
+======================================================================================================================
+*/
+
+
+.modal-content {
+    border: none;
+    box-shadow: 1px 3px 9px 3px rgba(0,0,0,0.8);
+}
+
+@media (min-width: 1200px) {
+    .loginModal .modal-lg, .registerModal .modal-lg {
+        max-width: 830px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .loginModal .modal-lg, .registerModal .modal-lg {
+        max-width: 830px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .loginModal .modal-lg, .registerModal .modal-lg {
+        max-width: 80vw;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .loginModal .modal-lg, .registerModal .modal-lg {
+        max-width: 85vw;
+    }
+}
+
+@media (min-width: 768px) {
+   .loginModal .close, .registerModal .close {
+        display: none;
+    } 
+}
+@media (max-width: 767px) {
+   .loginModal .close, .registerModal .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    } 
+}
+
+.modal-backdrop {
+ position:fixed;
+ top:0;
+ right:0;
+ bottom:0;
+ left:0;
+ z-index:1040;
+}
+
+.modal-backdrop.fade {
+ opacity:0;
+}
+.modal-backdrop.show {
+ opacity:.7;
+}
+
+/*
+================================
+Fonts
+================================
+*/
+.alredyRegistered p, .noYetRegistered p {
+    font-size: 0.9rem; 
+}
+
+/*
+================================
+Upper link
+================================
+*/
+
+.alredyRegistered {
+    position: absolute;
+    top: 15px;
+}
+
+.noYetRegistered .lineaHorizontalEstrecha {
+    width: 45%;
+    float: right;
+}
+    @media (max-width: 575px) {
+       .noYetRegistered .lineaHorizontalEstrecha {
+            display: none;
+        } 
+    }
+
+.alredyRegistered .lineaHorizontalEstrecha {
+    width: 40%;
+    float: right;
+}
+    @media (max-width: 575px) {
+       .alredyRegistered .lineaHorizontalEstrecha {
+            display: none;
+        } 
+    }
+
+/*
+================================
+Main container
+================================
+*/
+.modalMainContentContainer {
+    position: relative;
+    max-width: 100%;
+}
+
+.loginModal .btn-cta, .registerModal .btn-cta {
+    font-size: 1.7rem;
+    padding: 1% 5%;
+}
+    @media (max-width: 575px) {
+        .loginModal .btn-cta, .registerModal .btn-cta {
+            font-size: 1.6rem;
+            padding: 2% 5%;
+        }
+    }
+
+/*
+================================
+Or Register with
+================================
+*/
+.btn-social {
+    max-height: 46px;
+    width: 182px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    white-space: nowrap;
+    font-family: 'Jura', sans-serif!important;
+}
+
+.btn-social:focus {
+ outline:0;
+ box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+}
+
+.btn-msn {
+    color: #fff;
+    background-color: #3f729b;
+    max-height: 41px;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-msn img {
+    max-height: 22px;
+}
+
+.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-yahoo {
+    color: #fff;
+    background-color: #720e9e;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-steam {
+    color: #fff;
+    background-color: #77A934;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-google {
+    color: #757575;
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+/*Responsive basado en la altura de la pantalla y no en el ancho*/
+@media (max-height: 740px) {
+    .modal .display-4 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .modal .h6 {
+        font-size: 1rem;
+    }
+
+    .modal h4 {
+        font-size: 1.5rem;
+    }
+    .loginModal .btn-cta.mt-xl-4, .registerModal .btn-cta.mt-xl-4 {
+        margin-top: .25rem !important;
+    }
+    .modalMainContentContainer .mt-xl-5 {
+        margin-top: .75rem !important;
+    }
+
+    .modalMainContentContainer .pt-xl-4  {
+        padding-top: .5rem !important;
+    }
+}
+
+/*
+======================================================================================================================
+Botones de logado/no logado
+======================================================================================================================
+*/
+/* .unlogged, .logged {
+    display: none;
+} */

@@ -1,0 +1,160 @@
+/*
+======================================================================================================================
+REGISTER/LOGIN CSS IDC GAMES
+======================================================================================================================
+*/
+
+.bgRegister {
+	background-image: url("https://idcgames.net/cdn/img/login/idc-games-background.jpg");
+	background-repeat: no-repeat;
+}
+@media (max-width: 991px) {
+	.bgRegister {
+		height: 25vh;
+		background-position: center center;
+	}
+}
+
+.alredyRegistered {
+	position: absolute;
+	top: 15px;
+}
+
+.alredyRegistered .lineaHorizontalEstrecha {
+	width: 40%;
+	float: right;
+}
+
+.formularyAccount .lineaHorizontalAncha {
+	max-width: 60%;
+}
+
+.btn-social {
+    max-height: 46px;
+    width: 182px;
+	padding: 10px;
+	text-align: left;
+	border-radius: 2px;
+	white-space: nowrap;
+}
+@media (min-width: 1650px) {
+    .btn-social {
+        width: 185px; }
+}
+
+.btn-social:focus {
+ outline:0;
+ box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+}
+
+.btn-msn {
+    color: #fff;
+    background-color: #3f729b;
+    max-height: 41px;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-msn img {
+	max-height: 22px;
+}
+
+.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-yahoo {
+    color: #fff;
+    background-color: #720e9e;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-steam {
+    color: #fff;
+    background-color: #77A934;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-google {
+    color: #757575;
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.btn-link-custom{
+	font-family: "Jura"!important;
+	font-size: 1rem!important;
+	font-weight: 500!important;
+	line-height: 1.5!important;
+}
+
+.display-none-custom {
+	display: none;
+}
+
+.col-form-label.h4 {    
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+.registerModal .btn-cta {
+    font-size: 1.7rem;
+    padding: 1% 5%;
+}
+
+.noYetRegistered {
+    position: absolute;
+    top: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* solo launcher */
+html[data-useragent*='idclauncher'] .nolauncher {
+    display:none!important;
+}
+
+html[data-useragent*='idclauncher'] .launcher-container {
+    max-height: 100vh!important;
+    padding: 0 3rem!important;
+}
+
+.modalMainContentContainer {
+    padding: 3rem 0 0;
+}
+@media (min-width: 1650px) {
+    .modalMainContentContainer {
+        padding: 3rem 3rem;
+    }
+}
+
+html[data-useragent*='idclauncher'] .modalMainContentContainer {
+    padding: 2rem 3rem 0!important;
+}
+
+.mt-4header {
+   margin-top: 47px; 
+}
+
+html[data-useragent*='idclauncher'] .mt-4header {
+    margin-top: 0!important; 
+ }
+
+html[data-useragent*='idclauncher'] .btn-social {
+    width: 185px!important;
+}
+
+.fullHeight {
+    height: calc(100vh - 47px);
+}
+
+html[data-useragent*='idclauncher'] .fullHeight {
+    height: calc(100vh - 47px)!important;
+}

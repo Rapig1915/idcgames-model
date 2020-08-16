@@ -1,0 +1,3 @@
+footer { position: relative!important;bottom:auto; }
+footer button.close, footer { z-index: 666; position:relative; }
+.closeCookiesBox { z-index: 666; }
